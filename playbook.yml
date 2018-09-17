@@ -78,15 +78,32 @@
         group: "{{ ansible_user_id }}"
         mode: "u=x"
 
+    - name: add init scripts for aiflow web service
+      become: true
+      template:
+        src: config/init.d/airflow-scheduler
+        dest: /etc/init.d/airflow-scheduler
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: "u=x"
+
+
     - name: airflow initdb
       environment:
         PATH: $PATH:~/.local/bin
       shell: airflow initdb
 
-    - name: start ansible scheduler service
+    - name: start airflow scheduler service
       become: true
       service:
         name: airflow-scheduler
+        state: started
+        enabled: true
+
+    - name: start airflow web service
+      become: true
+      service:
+        name: airflow-web
         state: started
         enabled: true
 
