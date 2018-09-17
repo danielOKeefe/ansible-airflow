@@ -15,8 +15,7 @@
 
 dir="/home/vagrant"
 user="{{ ansible_user_id }}"
-PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/home/${user}/.local/bin
-cmd="/home/${user}/.local/bin/airflow webserver -p 8080"
+cmd="PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/home/${user}/.local/bin /home/${user}/.local/bin/airflow webserver -p 8080"
 
 
 
