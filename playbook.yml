@@ -81,8 +81,8 @@
     - name: add init scripts for aiflow web service
       become: true
       template:
-        src: config/init.d/airflow-scheduler
-        dest: /etc/init.d/airflow-scheduler
+        src: config/init.d/airflow-web
+        dest: /etc/init.d/airflow-web
         owner: "{{ ansible_user_id }}"
         group: "{{ ansible_user_id }}"
         mode: "u=x"
