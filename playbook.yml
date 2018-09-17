@@ -63,9 +63,31 @@
         state: present
         extra_args: --user
 
+    - name: install libselinux-python
+      become: true
+      yum:
+        name: libselinux-python
+        state: present
+
+    - name: add init scripts for aiflow scheduler
+      become: true
+      template:
+        src: config/init.d/airflow-scheduler
+        dest: /etc/init.d/airflow-scheduler
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: "u=x"
+
     - name: airflow initdb
       environment:
         PATH: $PATH:~/.local/bin
       shell: airflow initdb
+
+    - name: start ansible scheduler service
+      service:
+        name: airflow-scheduler
+        state: started
+        enabled: true
+
 
 

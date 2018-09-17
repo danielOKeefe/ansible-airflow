@@ -14,7 +14,7 @@
 dir="/home/vagrant"
 user="{{ ansible_user_id }}"
 PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin:/home/${user}/.local/bin
-cmd="whoami && echo ${PATH} && airflow schedule"
+cmd="/home/${user}/.local/bin/airflow scheduler"
 
 
 
