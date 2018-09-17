@@ -87,6 +87,15 @@
         group: "{{ ansible_user_id }}"
         mode: "u=x"
 
+    - name: copy airflow config
+      become: true
+      copy:
+        src: config/airflow.cfg
+        dest: "/home/{{ ansible_user_id }}/airflow/airflow.cfg"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+        mode: "u=r"
+
 
     - name: airflow initdb
       environment:
