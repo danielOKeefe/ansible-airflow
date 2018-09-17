@@ -1,0 +1,71 @@
+- hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: install the 'Development tools' package group
+      become: true
+      yum:
+        name: "@Development tools"
+        state: present
+
+    - name: install centos-release-scl
+      become: true
+      yum:
+        name: centos-release-scl
+        state: present
+
+    - name: install epel
+      become: true
+      yum:
+        name: epel-release
+
+    - name: install python34
+      become: true
+      yum:
+        name: python34
+        state: present
+
+    - name: install python34-devel
+      become: true
+      yum:
+        name: python34-devel
+        state: present
+
+    - name: install python34-setuptools
+      become: true
+      yum:
+        name: python34-setuptools
+        state: present
+
+    - name: install pip
+      become: true
+      shell: pip -V || sudo easy_install-3.4 pip
+
+    - name: install unidecode
+      pip:
+        name: unidecode
+        state: present
+        extra_args: --user
+
+    - name: install airflow
+      environment:
+        AIRFLOW_GPL_UNIDECODE: yes
+      pip:
+        name: apache-airflow
+        state: present
+        extra_args: --user
+
+    - name: install airflow postgres
+      environment:
+        AIRFLOW_GPL_UNIDECODE: yes
+      pip:
+        name: apache-airflow[postgres]
+        state: present
+        extra_args: --user
+
+    - name: airflow initdb
+      environment:
+        PATH: $PATH:~/.local/bin
+      shell: airflow initdb
+
+
