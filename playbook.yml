@@ -84,6 +84,7 @@
       shell: airflow initdb
 
     - name: start ansible scheduler service
+      become: true
       service:
         name: airflow-scheduler
         state: started

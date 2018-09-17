@@ -1,4 +1,6 @@
 #!/bin/sh
+# chkconfig: 346 97 76
+# description: airflow scheduler daemon
 ### BEGIN INIT INFO
 # Provides:
 # Required-Start:    $remote_fs $syslog
