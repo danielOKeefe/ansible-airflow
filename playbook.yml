@@ -87,6 +87,12 @@
         group: "{{ ansible_user_id }}"
         mode: "u=x"
 
+    # create a directory if it doesn't exist
+    - name:
+      file:
+        path:  "/home/{{ ansible_user_id }}/airflow"
+        state: directory
+
     - name: copy airflow config
       become: true
       copy:
@@ -102,6 +108,15 @@
         PATH: $PATH:~/.local/bin
       shell: airflow initdb
 
+    - name: add airflow scheduler to chkconfig
+      become: true
+      shell: chkconfig --add airflow-scheduler
+
+    - name: add airflow web to chkconfig
+      become: true
+      shell: chkconfig --add airflow-web
+
+
     - name: start airflow scheduler service
       become: true
       service:
@@ -115,6 +130,7 @@
         name: airflow-web
         state: started
         enabled: true
+
 
 
 

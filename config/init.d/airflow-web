@@ -1,6 +1,6 @@
 #!/bin/sh
-# chkconfig: 347 98 77
-# description: airflow webserver daemon
+# chkconfig: 346 97 76
+# description: airflow web daemon
 ### BEGIN INIT INFO
 # Provides:
 # Required-Start:    $remote_fs $syslog
